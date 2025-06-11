@@ -1,0 +1,225 @@
+@use "@angular/material" as mat;
+
+.mat-mdc-checkbox {
+  .mdc-form-field {
+    @apply p-0;
+  }
+}
+
+mat-form-field[appearance="fill"] {
+  // @apply inline-block #{'!important'};
+  // @apply inline-block #{'!important'};
+
+  // .mat-mdc-text-field-wrapper {
+  //   margin-bottom: 0.25rem !important;
+
+  //   .mat-mdc-form-field-icon-suffix {
+  //     .mat-icon {
+  //       min-height: 18px;
+  //       height: 18px;
+  //     }
+  //   }
+
+  //   mat-select,
+  //   button {
+  //     @apply flex items-center;
+  //     height: 18px;
+  //   }
+  // }
+
+  // .mat-mdc-text-field-wrapper {
+  //   background-color: transparent !important;
+  // }
+
+  // .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex {
+  //   min-height: 30px;
+  //   padding: 0px 10px;
+  //   @apply shadow-none border-slate-200 #{'!important'}; // need to override fuse styles
+
+  //   .mat-mdc-form-field-infix {
+  //     min-height: 18px;
+
+  //     .mat-mdc-form-field-label-wrapper .mat-mdc-form-field-label {
+  //       top: 4px;
+  //       // @include mat.m2-typography-level($my-custom-typography, 'caption');
+  //     }
+
+  //     // .mat-mdc-floating-label {
+  //     //   top: 0px !important;
+  //     //   color: red !important;
+  //     //   // @include mat.m2-typography-level($my-custom-typography, 'caption');
+  //     // }
+
+  //     textarea.mat-mdc-input-element {
+  //       min-height: 10px;
+  //       margin: 0px;
+  //       padding: 0 2px 0 0;
+  //     }
+
+  //     textarea {
+  //       height: auto;
+  //     }
+
+  //     input {
+  //       height: 25px;
+  //     }
+  //     a:has(mat-icon) {
+  //       @apply flex;
+  //     }
+  //   }
+
+  //   .mat-mdc-form-field-suffix {
+  //     @apply -mt-0.5 -mb-0.5 pr-1.25;
+  //     // .mat-icon-button, .mat-datepicker-toggle-default-icon {
+  //     //     @apply icon-size-5 #{'!important'};
+  //     // }
+  //   }
+  // }
+
+  // // &.mat-form-field-invalid {
+  // //     .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex {
+  // //         @apply border-red-500 #{'!important'}; // need to override fuse styles
+  // //     }
+  // // }
+
+  // // &.green {
+  // //     .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex {
+  // //         @apply border-green-500 #{'!important'}; // need to override fuse styles
+  // //     }
+  // // }
+
+  // // border changed to child element, to avoid additional 1px height overall.
+  // .mat-mdc-text-field-wrapper {
+  //   @apply border-none #{'!important'};
+  //   .mat-mdc-form-field-flex {
+  //     @apply border-[1px] #{'!important'};
+  //   }
+  // }
+
+  // // .mat-mdc-select-placeholder {
+  // //   -webkit-text-fill-color: slategrey;
+  // //   opacity: 0.7;
+  // //   line-height: 1;
+  // // }
+  // // .mat-mdc-form-field-subscript-wrapper {
+  // //   .mat-mdc-form-field-error-wrapper .mat-mdc-form-field-error {
+  // //     @apply whitespace-break-spaces;
+  // //   }
+  // // }
+  // // &.mat-form-field-disabled {
+  // //   @apply opacity-100 #{'!important'};
+  // //   .mat-mdc-text-field-wrapper {
+  // //     @apply bg-gray-300 #{'!important'};
+  // //   }
+  // // }
+}
+
+mat-form-field[appearance="outline"] {
+  @apply text-gray-300 pb-1 #{'!important'};
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex {
+    @apply px-3 h-12;
+    .mat-mdc-form-field-infix {
+      padding: 0.5em 0 1em 0;
+      .mat-mdc-form-field-label-wrapper {
+        padding: 0px 0px 10px 0px;
+        top: -1.1em;
+      }
+    }
+
+    // .mat-mdc-form-field-suffix {
+    //   .mat-mdc-icon-button,
+    //   .mat-datepicker-toggle-default-icon {
+    //     @apply icon-size-5 #{'!important'};
+    //   }
+    // }
+
+    .mdc-notched-outline__leading {
+      border-radius: 10px 0 0 10px !important;
+    }
+    .mdc-notched-outline__trailing {
+      border-radius: 0 10px 10px 0 !important;
+    }
+    .mdc-notched-outline__notch {
+      border-left: none !important;
+      border-right: none !important;
+    }
+    .mat-mdc-form-field-outline-thick .mat-mdc-form-field-outline-gap {
+      border-width: 1px;
+    }
+    .mdc-floating-label {
+      @apply pb-3;
+    }
+    .mdc-floating-label--float-above {
+      @apply text-xl;
+    }
+    .mat-mdc-input-element {
+      transform: translate(-12px, 4px);
+    }
+    .mat-mdc-notch-piece {
+      border-width: 1px !important;
+    }
+  }
+  &:not(.mat-focused):not(.green):not(.warning):not(.mat-form-field-disabled)
+    .mat-mdc-text-field-wrapper
+    .mat-mdc-form-field-flex
+    .mdc-notched-outline {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      @apply border-gray-500 #{'!important'};
+    }
+  }
+  &.warning
+    .mat-mdc-text-field-wrapper
+    .mat-mdc-form-field-flex
+    .mdc-notched-outline[matformfieldnotchedoutline=""] {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      @apply border-red-500 #{'!important'};
+    }
+  }
+  &.green
+    .mat-mdc-text-field-wrapper
+    .mat-mdc-form-field-flex
+    .mdc-notched-outline[matformfieldnotchedoutline=""] {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      @apply border-green-500 #{'!important'};
+    }
+  }
+  .mat-mdc-form-field-subscript-wrapper {
+    .mat-mdc-form-field-error-wrapper {
+      @apply px-2;
+    }
+  }
+  .mat-mdc-form-field.mat-form-field-appearance-outline:not(.mat-focused):not(
+      .mat-form-field-invalid
+    )
+    .mat-mdc-text-field-wrapper
+    .mat-mdc-form-field-flex
+    .mdc-notched-outline {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      @apply border-gray-500 #{'!important'};
+    }
+  }
+  .mat-mdc-form-field-required-marker {
+    @apply text-red-500;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    margin-top: 3px;
+    mat-error {
+      font-size: 0.875rem;
+      font-weight: 400;
+    }
+  }
+}
+
+.mat-mdc-form-field-hide-placeholder .mat-mdc-select-placeholder {
+  -webkit-text-fill-color: slategrey;
+  opacity: 0.7;
+}
