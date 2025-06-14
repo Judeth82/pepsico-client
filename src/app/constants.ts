@@ -1,5 +1,7 @@
 import { MatTooltipDefaultOptions } from "@angular/material/tooltip";
 
+export const InputDelayMS = 3000;
+
 export const defaultConstants = {
   nbsp: String.fromCharCode(160),
   newLine: '\n',

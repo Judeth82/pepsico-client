@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "distritoId": 1,
+    "nombre": "Rosa Isela Verduzco",
+    "correo": "ROSAISELA.VERDUZCOALVAREZ@PEPSICO.COM",
+    "telefono": "5579638245"
+  },
+  {
+    "id": 2,
+    "distritoId": 2,
+    "nombre": "Reyna Vazquez Hernandez",
+    "correo": "REYNA.VAZQUEZ@PEPSICO.COM",
+    "telefono": "5544427764"
+  },
+  {
+    "id": 3,
+    "distritoId": 3,
+    "nombre": "Jesus Ivan Noriega",
+    "correo": "IVAN.NORIEGA@PEPSICO.COM",
+    "telefono": "5564361025"
+  }
+]

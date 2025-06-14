@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from '@c/layout/layout.component';
-import { authRoutes } from '@defaults';
+import { authRoutes, dashboardRoute } from '@defaults';
 
 export const routes: Routes = [
   // Redirect empty path to defaultRoute
-  { path: '', pathMatch: 'full', redirectTo: authRoutes.signInRoute },
+  { path: '', pathMatch: 'full', redirectTo: dashboardRoute },
 
   // No auth routes for guests
   {
@@ -15,5 +15,11 @@ export const routes: Routes = [
     },
     loadChildren: () => import('@pages/auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: '**', redirectTo: authRoutes.signInRoute },
+  // Auth routes for authenticated users
+  {
+    path: '',
+    component: LayoutComponent,
+    loadChildren: () => import('@pages/admin/admin.module').then((m) => m.AdminModule),
+  },
+  { path: '**', redirectTo: dashboardRoute },
 ];

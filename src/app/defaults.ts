@@ -1,6 +1,6 @@
 export const baseRoute = '';
 export const dashboardRoute = 'dashboard';
-export const welcomeDashboardRoute = 'welcome';
+export const serviceTrackRoute = 'service-track';
 
 export const defaultRoute = `/${dashboardRoute}`;
 
