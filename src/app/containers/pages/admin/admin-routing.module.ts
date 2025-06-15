@@ -25,6 +25,11 @@ const routes: Routes = [
         canActivate: [],
         loadChildren: () => import('./service-track/service-track.module').then((m) => m.ServiceTrackModule),
       },
+      {
+        path: '',
+        redirectTo: dashboardRoute,
+        pathMatch: 'full',
+      },
     ],
   },
 ];

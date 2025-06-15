@@ -35,11 +35,15 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           return of(result);
         }
 
-        if (!result) {
-          return of(
-            this._router.createUrlTree([`/${authRoutes.signInRoute}`])
-          );
-        }
+        // if (!result && !route?.data['layout']) {
+        //   return of(false);
+        // }
+
+        // if (!result) {
+        //   return of(
+        //     this._router.createUrlTree([`/${authRoutes.signInRoute}`])
+        //   );
+        // }
 
         return of(true);
       })

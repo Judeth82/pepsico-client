@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <title>Pepsico Client</title>
   <meta charset="utf-8">
-  <meta name="description" content=""/>
-  <meta name="keywords" content="Pepsico, pco"/>
+  <meta name="description" content="" />
+  <meta name="keywords" content="Pepsico, pco" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content=""/>
+  <meta http-equiv="Content-Security-Policy" content="" />
   <base href="/">
 
   <!-- Favicon -->
@@ -16,9 +17,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
   <!-- Icon fonts -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- Splash screen styles -->
+  <link href="assets/styles/animate.min.css" rel="stylesheet" />
+  <link href="assets/styles/splash-screen.css" rel="stylesheet" />
 </head>
+
 <body class="mat-typography pco-app">
+  <!-- Splash screen -->
+  <fuse-splash-screen>
+    <!-- <img src="assets/images/logo/" class="pl-10 sm:pl-0 w-80" /> -->
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </fuse-splash-screen>
+
+  <!-- App root -->
   <pco-root></pco-root>
 </body>
+
 </html>

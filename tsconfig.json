@@ -33,6 +33,7 @@
       "@dec/*": ["app/decorators/*"],
       "@e/*": ["app/enums/*"],
       "@g/*": ["app/guards/*"],
+      "@lib/*": ["app/lib/*"],
       "@m/*": ["app/models/*"],
       "@s/*": ["app/services/*"],
       "@u/*": ["app/utility/*"],
