@@ -38,6 +38,8 @@ $pepsico-client-theme: mat.define-theme(
 /* You can add global styles to this file, and also import other style files */
 
 .pco-app {
+  @apply bg-primary-950;
+
   html,
   body {
     height: 100%;
@@ -56,7 +58,7 @@ $pepsico-client-theme: mat.define-theme(
   }
 
   section {
-    @apply bg-primary-950;
+
 
     .section-form {
       box-shadow: 1px -1px 10px 4px #6554bd !important;
