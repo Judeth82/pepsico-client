@@ -3,9 +3,13 @@ import { LocalDataEnum } from '@e/local-data.enum';
 import { BaseDataService } from './base-data.service';
 import { DistritoModel } from 'app/models';
 import { LocalDataService } from '@s/local-data.services';
+import { of, switchMap } from 'rxjs';
+import { arrayToRecord } from '@u/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class DistritoDataService extends BaseDataService<DistritoModel> {
+  entityMapByPrefix$ = this.entities$.pipe(switchMap((entities) => of(arrayToRecord<DistritoModel>('prefix', entities))));
+
   private _fileName = LocalDataEnum.distritos;
 
   constructor(

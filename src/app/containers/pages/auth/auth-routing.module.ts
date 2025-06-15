@@ -21,11 +21,6 @@ const routes: Routes = [
         canActivate: [],
         loadChildren: () => import('./registered/registered.module').then((m) => m.RegisteredModule),
       },
-      {
-        path: '',
-        redirectTo: authRoutes.signInRoute,
-        pathMatch: 'full',
-      },
     ],
   },
 ];

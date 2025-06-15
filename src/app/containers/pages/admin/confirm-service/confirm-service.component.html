@@ -1,0 +1,54 @@
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <div *ngIf="!networkActive() else loading"
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="w-full text-start p-2">
+        <mat-icon class="text-primary-600 cursor-pointer" (click)="goBack()">arrow_back</mat-icon>
+      </div>
+      <div class="p-6 pt-1 space-y-2">
+        <p class="font-bold leading-tight tracking-tight text-primary-700 text-3xl dark:text-white text-center pb-4 m-0">
+          Porfavor verifica los datos
+        </p>
+
+        <span class="w-full text-center text-orange-500 text-lg m-0">
+          Hola <span class="text-primary-700 font-semibold">{{ clientData()?.nombre }}</span>, el servicio se solicitara con los siguientes datos:
+        </span>
+
+        <p class="w-full text-primary-700 font-semibold m-0">
+            Servicio: {{ selectedService()?.name }} ({{selectedService()?.code}})
+        </p>
+
+        <ng-container *ngIf="(distritoDataService.entityMapByPrefix$ | async) as distritoMapByPrefix">
+          <ng-container *ngIf="distritoMapByPrefix[selectedDistritoPrefix()] as selectedDistrito">
+            <p class="w-full text-primary-700 font-semibold m-0" >
+              Distrito: {{ clientData()?.distrito }}
+            </p>
+
+            <ng-container *ngIf="(supervisorDataService.entityMapByDistrito$ | async) as supervisorMapByDistrito">
+              <ng-container *ngIf="supervisorMapByDistrito[selectedDistrito.id] as supervisor">
+                <p class="w-full text-primary-700 font-semibold m-0" >
+                  Supervisor: {{ supervisor.nombre | uppercase }}
+                </p>
+
+                <p class="w-full text-primary-700 font-semibold m-0" >
+                  Contacto: {{ supervisor.telefono }}
+                </p>
+
+                <p class="w-full text-primary-700 font-semibold m-0" >
+                  Correo: {{ supervisor.correo }}
+                </p>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <div class="space-y-4 md:space-y-6">
+          <button class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-template #loading>Loading...</ng-template>
+  </div>
+</section>

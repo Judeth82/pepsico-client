@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { dashboardRoute, serviceTrackRoute } from '@defaults';
+import { confirmSerivceRoute, dashboardRoute, serviceTrackRoute } from '@defaults';
 import { AuthGuard } from '@g/auth.guard';
 
 const routes: Routes = [
@@ -16,10 +16,15 @@ const routes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
+        path: confirmSerivceRoute,
+        canActivate: [],
+        loadChildren: () => import('./confirm-service/confirm-service.module').then((m) => m.ConfirmServiceModule),
+      },
+      {
         path: serviceTrackRoute,
         canActivate: [],
         loadChildren: () => import('./service-track/service-track.module').then((m) => m.ServiceTrackModule),
-      }
+      },
     ],
   },
 ];
