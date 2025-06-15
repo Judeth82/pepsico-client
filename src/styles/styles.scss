@@ -39,7 +39,6 @@ $pepsico-client-theme: mat.define-theme(
 
 .pco-app {
   @apply bg-primary-950;
-
   html,
   body {
     height: 100%;
@@ -61,8 +60,8 @@ $pepsico-client-theme: mat.define-theme(
 
 
     .section-form {
-      box-shadow: 1px -1px 10px 4px #6554bd !important;
-      @apply bg-primary-50;
+      // box-shadow: 1px -1px 10px 4px #6554bd !important;
+      @apply bg-white;
     }
   }
 }
