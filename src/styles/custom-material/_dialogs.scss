@@ -1,0 +1,94 @@
+@use "@angular/material" as mat;
+
+.cdk-overlay-pane.pco-dialog {
+    @media screen and (max-width: theme("screens.sm")) {
+        width: 100vw;
+        height: 100vh;
+        min-width: unset !important;
+    }
+
+    .mat-mdc-dialog-container {
+        @apply p-0 flex flex-row rounded #{'!important'};
+        box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -4px rgba(16, 24, 40, 0.08) !important;
+
+        @media screen and (max-width: theme("screens.sm")) {
+            @apply rounded-none #{'!important'};
+        }
+
+        & > * {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mat-mdc-dialog-surface {
+            padding: 0px !important;
+            border-radius: 0.25rem !important;
+            overflow: hidden !important;
+
+            .mat-mdc-dialog-title {
+                // @include mat.m2-typography-level($my-custom-typography, "headline-3");
+                @apply flex-grow-0 m-0 bg-primary-50 font-semibold p-2.5 h-12.5 gap-2.5 flex items-center;
+                & > mat-icon {
+                    // @apply icon-size-4.5;
+
+                    &.close {
+                        @apply ml-auto cursor-pointer;
+                    }
+                }
+                // border-bottom: $simple-border;
+            }
+        }
+
+        .mat-mdc-dialog-content {
+            @apply flex-grow m-0 p-2.5 max-h-[80vh] py-0;
+        }
+
+        .mat-mdc-dialog-actions {
+            @apply bg-primary-50 m-0 h-12.5 min-h-12.5 py-1.5 px-2.5 flex justify-end items-center gap-2.5;
+            // border-top: $simple-border;
+
+            @media screen and (max-width: theme("screens.sm")) {
+                @apply h-auto;
+            }
+
+            .mat-button-base {
+                @apply m-0;
+
+                @media screen and (max-width: theme("screens.sm")) {
+                    @apply mt-2.5 w-full;
+                }
+            }
+        }
+    }
+
+    &.over-panel {
+        --animate-duration: 0.5s;
+        --animate-delay: 0.5s;
+        width: 100vw;
+        height: 100vh;
+        min-width: unset !important;
+        min-height: unset !important;
+
+        .mat-mdc-dialog-content {
+            max-height: unset;
+        }
+
+        &.top {
+            // height: calc(100vh - #{$over-panel-vertical-padding});
+            align-self: flex-start;
+
+            @media screen and (max-width: theme("screens.md")) {
+                height: 100vh;
+
+                .mat-mdc-dialog-container {
+                    @apply rounded-none #{'!important'};
+                }
+            }
+
+            .mat-mdc-dialog-container {
+                @apply rounded-tl-none rounded-tr-none #{'!important'};
+            }
+        }
+    }
+}

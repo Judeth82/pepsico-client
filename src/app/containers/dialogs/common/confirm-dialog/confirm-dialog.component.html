@@ -1,0 +1,24 @@
+<div mat-dialog-title>
+    <div class="flex w-full justify-between print:hidden items-center">
+        <div class="flex sm:flex-row flex-col font-bold text-base text-primary">
+            {{ data.header }}
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-content class="flex items-center font-bold text-base text-primary p-2.5 min-h-30">
+    <span [innerHTML]="data.confirmationText" class="break-words"></span>
+</div>
+<div mat-dialog-actions>
+    <button mat-stroked-button color="primary" (click)="cancel()" *ngIf="data.showCancel" class="small-button">
+        {{ data.cancelText || 'Cancelar' }}
+    </button>
+
+    <button mat-raised-button color="primary"
+      class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium text-sm px-5 py-2.5 text-center"
+      (click)="ok()">
+      {{ data.okText || 'Si' }}
+    </button>
+
+    <button mat-stroked-button color="primary" class="small-button" (click)="notOk()" *ngIf="data.showNotOk">{{ data.notOkText || 'No' }}</button>
+</div>

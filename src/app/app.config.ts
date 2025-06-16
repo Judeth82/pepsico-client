@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -8,6 +8,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { PCOPreloadingStrategy } from '@u/strategies';
 import { provideFuse } from '@s/splash-screen/fuse.provider';
+import { AllDialogsModule } from '@dialogs/all-dialogs.module';
+import { FormDefaultsModule } from '@c/shared';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }), withPreloading(PCOPreloadingStrategy)),
     provideClientHydration(),
     provideAnimationsAsync(),
+    importProvidersFrom(AllDialogsModule, FormDefaultsModule),
     provideFuse({
       fuse: {
         layout: 'classy',
