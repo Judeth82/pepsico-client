@@ -3,6 +3,7 @@ import { LocalDataEnum } from '@e/local-data.enum';
 import { BaseDataService } from './base-data.service';
 import { ClienteModel } from 'app/models';
 import { LocalDataService } from './local-data.services';
+import { cloneDeep } from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class ClienteDataService extends BaseDataService<ClienteModel> {
@@ -20,5 +21,11 @@ export class ClienteDataService extends BaseDataService<ClienteModel> {
       }, () => {
         this.loading$.next(false);
       });
+  }
+
+  public add(entity: ClienteModel): void {
+    const entities = cloneDeep(this.entities$.value);
+    entities.push(entity);
+    this.entities$.next(entities);
   }
 }

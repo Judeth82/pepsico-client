@@ -1,6 +1,6 @@
 export interface RegisterFormModel {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  location: string;
+  nombre: string;
+  telefono: string;
+  distrito: string;
+  direccion: string;
 }

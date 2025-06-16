@@ -4,7 +4,7 @@ import { RegisteredComponent } from './registered.component';
 
 const routes: Array<Route> = [
   {
-    path: '',
+    path: ':id',
     component: RegisteredComponent,
     title: 'Cliente Registrado',
     canActivate: []

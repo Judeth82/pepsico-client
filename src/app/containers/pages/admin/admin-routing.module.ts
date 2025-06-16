@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { confirmSerivceRoute, dashboardRoute, serviceTrackRoute } from '@defaults';
+import { confirmSerivceRoute, dashboardRoute } from '@defaults';
 import { AuthGuard } from '@g/auth.guard';
 
 const routes: Routes = [
@@ -19,16 +19,6 @@ const routes: Routes = [
         path: confirmSerivceRoute,
         canActivate: [],
         loadChildren: () => import('./confirm-service/confirm-service.module').then((m) => m.ConfirmServiceModule),
-      },
-      {
-        path: serviceTrackRoute,
-        canActivate: [],
-        loadChildren: () => import('./service-track/service-track.module').then((m) => m.ServiceTrackModule),
-      },
-      {
-        path: '',
-        redirectTo: dashboardRoute,
-        pathMatch: 'full',
       },
     ],
   },

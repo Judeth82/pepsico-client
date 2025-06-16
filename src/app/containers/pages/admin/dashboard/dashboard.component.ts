@@ -49,7 +49,13 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     this._clienteDataService.entities$.pipe(
       switchMap((entities) => of((entities || []).find((e) => e.id === clientId))),
       takeUntil(this._destroy$),
-    ).subscribe((client) => this.clientData.set(client as ClienteModel));
+    ).subscribe((client) => {
+      if (client) {
+        this.clientData.set(client as ClienteModel);
+      } else {
+        this._localSessionService.clearSession();
+      }
+    });
   }
 
   protected logout(): void {

@@ -3,7 +3,6 @@ import { AfterViewInit, Component, OnDestroy, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { defaultConstants } from '@constants';
 import { dashboardRoute } from '@defaults';
 import { ClienteModel } from '@m/cliente.model';
 import { ServicioModel } from '@m/servicio.model';
@@ -105,6 +104,8 @@ export class ConfirmServiceComponent implements AfterViewInit, OnDestroy {
       </span>
     `;
       await this._dialogsService.info(message);
+
+      this._router.navigate([dashboardRoute]);
     });
   }
 

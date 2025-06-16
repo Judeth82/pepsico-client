@@ -1,5 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { LocalStorageStateEnum } from '@e/local-storage-key.enum';
 
 @Injectable({ providedIn: 'root' })
@@ -25,8 +24,8 @@ export class LocalSessionService {
     return null;
   }
 
-  public saveSession(clientId: string): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
+  public saveSession(clientId: string | null): void {
+    if (typeof window !== 'undefined' && window.localStorage && clientId) {
       localStorage.setItem(this._key, clientId);
     }
   }

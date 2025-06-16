@@ -3,32 +3,35 @@
     <div class="flex flex-col mb-2 pr-2">
       <div class="flex flex-wrap items-baseline">
           <!-- First Name field -->
-          <mat-form-field class="w-full pt-2" appearance="outline">
-              <mat-label>Nombre(s)</mat-label>
-              <input id="firstName" matInput formControlName="firstName">
+          <mat-form-field class="w-full pt-2 mb-2" appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input id="nombre" matInput formControlName="nombre">
               <!-- errors -->
-              <mat-error *ngIf="isError('firstName', 'required')">Nombre Requerido</mat-error>
+              <mat-error *ngIf="isError('nombre', 'required')">Nombre Requerido</mat-error>
           </mat-form-field>
 
-          <mat-form-field class="w-full" appearance="outline">
-              <mat-label>Apellido(s)</mat-label>
-              <input id="lastName" matInput formControlName="lastName">
-              <!-- errors -->
-              <mat-error *ngIf="isError('lastName', 'required')">Apellido Requerido</mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="w-full" appearance="outline">
+          <mat-form-field class="w-full mb-2" appearance="outline">
               <mat-label>Telefono</mat-label>
-              <input id="phoneNumber" matInput formControlName="phoneNumber">
+              <input id="telefono" matInput formControlName="telefono">
               <!-- errors -->
-              <mat-error *ngIf="isError('phoneNumber', 'required')">Telefono Requerido</mat-error>
+              <mat-error *ngIf="isError('telefono', 'required')">Telefono Requerido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full mb-2" appearance="outline">
+            <mat-label>Distrito</mat-label>
+            <mat-select formControlName="distrito">
+                <mat-option *ngFor="let distrito of (distritoDataService.entities$ | async)" [value]="distrito.prefix">
+                    {{ distrito.prefix }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="isError('distrito', 'required')">Distrito Requerido</mat-error>
           </mat-form-field>
 
           <mat-form-field class="w-full" appearance="fill">
-              <mat-label>Direction</mat-label>
-              <textarea matInput formControlName="location" class="p-0" rows="2"></textarea>
+              <mat-label>Dirección</mat-label>
+              <textarea matInput formControlName="direccion" class="p-0" rows="2"></textarea>
               <!-- errors -->
-              <mat-error *ngIf="isError('location', 'required')">Direccion Requerida</mat-error>
+              <mat-error *ngIf="isError('direccion', 'required')">Dirección Requerida</mat-error>
           </mat-form-field>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { getGroup } from '@u/forms';
 import { Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
+import { DistritoDataService } from '@s/distrito-data.service';
 
 @Component({
   selector: 'pco-register-form',
@@ -17,13 +18,15 @@ import { A11yModule } from '@angular/cdk/a11y';
   ],
 })
 export class RegisterFormComponent extends FormBaseComponent<RegisterFormModel> {
-  constructor() {
+  constructor(
+    protected distritoDataService: DistritoDataService,
+  ) {
     super(
       getGroup<RegisterFormModel>({
-        firstName: { vldtr: [Validators.required] },
-        lastName: { vldtr: [Validators.required] },
-        phoneNumber: { vldtr: [Validators.required] },
-        location: { vldtr: [Validators.required] },
+        nombre: { vldtr: [Validators.required] },
+        telefono: { vldtr: [Validators.required] },
+        distrito: { vldtr: [Validators.required] },
+        direccion: {},
       })
     )
   }
