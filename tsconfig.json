@@ -40,6 +40,7 @@
       "@constants": ["app/constants.ts"],
       "@defaults": ["app/defaults.ts"],
       "@assets/*": ["assets/*"],
+      "@env/*": ["environments/*"],
     },
     "useDefineForClassFields": false,
   },

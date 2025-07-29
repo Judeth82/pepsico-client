@@ -1,14 +1,19 @@
-@switch(layout) {
-  @case ('empty') {
-  <!-- ----------------------------------------------------------------------------------------------------- -->
-  <!-- Empty layout -->
-  <!-- ----------------------------------------------------------------------------------------------------- -->
-  <empty-layout></empty-layout>
-  } @case('authorization') {
-  <!-- Authorization layout -->
-  <authorization-layout></authorization-layout>
-  } @default {
-  <!-- Genral -->
-  <general-layout></general-layout>
+<div class="static">
+  @switch(layout) {
+    @case ('empty') {
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- Empty layout -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <empty-layout></empty-layout>
+    } @case('authorization') {
+    <!-- Authorization layout -->
+    <authorization-layout></authorization-layout>
+    } @default {
+    <!-- Genral -->
+    <general-layout></general-layout>
+    }
   }
-}
+  <div class="absolute bottom-0 left-0 text-white px-2">
+    <p>{{version}}</p>
+  </div>
+</div>

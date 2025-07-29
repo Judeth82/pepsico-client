@@ -5,6 +5,7 @@ import { AuthorizationLayoutComponent } from './layouts/authorization/authorizat
 import { LayoutType } from './layout.types';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, startWith, Subject, takeUntil } from 'rxjs';
+import { environment } from '@env/environment';
 
 @Component({
   standalone: true,
@@ -15,13 +16,16 @@ import { filter, startWith, Subject, takeUntil } from 'rxjs';
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   protected layout!: LayoutType;
+  protected version!: string;
 
   private _unsubscribeAll = new Subject<void>();
 
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-  ) {}
+  ) {
+    this.version = environment?.version ?? null;
+  }
 
   ngOnDestroy(): void {
     this._unsubscribeAll.next();
