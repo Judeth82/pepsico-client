@@ -7,9 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration=production",
     "serve:ssr:pepsico-client": "node dist/pepsico-client/server/server.mjs",
-    "heroku-postbuild": "ng build:prod"
+    "build:prod": "ng build --configuration=production",
+    "heroku-postbuild": "npm run build:prod"
   },
   "private": true,
   "dependencies": {
