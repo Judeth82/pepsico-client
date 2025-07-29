@@ -99,9 +99,12 @@ export class ConfirmServiceComponent implements AfterViewInit, OnDestroy {
       const guidNum = Math.floor(Math.random() * 8999999 + 100000);
 
       const payload: SendEmailRequestModel = {
-        to: 'judethc82@gmail.com',
-        subject: 'TESTING',
-        htmlMessage: '<h1>TEST</h1>'
+        to: supervisor.correo,
+        subject: `Solicitud de servicio`,
+        htmlMessage: `
+          Hola ${supervisor}, el cliente ${this.clientData()?.nombre} a solicitado el siguiente servicio ${this.selectedService()?.name}.
+          Para mas seguimiento favor de usar el siguiente numeor de rastreo ${guidNum} para visita al distrito ${distrito.prefix}.
+        `
       }
 
       this._emailHelperService.send(payload).pipe(takeUntil(this._destroy$)).subscribe(async (resp) => {
@@ -117,6 +120,8 @@ export class ConfirmServiceComponent implements AfterViewInit, OnDestroy {
           await this._dialogsService.info(message);
 
           this._router.navigate([dashboardRoute]);
+        } else {
+          await this._dialogsService.info('Algo salio mal al momento de enviar el correo, favor de intentar mas tarde.');
         }
       });
     });
