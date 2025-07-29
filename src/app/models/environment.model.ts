@@ -1,7 +1,7 @@
 export interface EnvironmentModel {
     production: boolean;
     version: string;
-    // twmsApiBaseUrl: string;
+    apiBaseUrl: string;
     // twmsApiUrl: string;
     // twmsApiVersionHeader: string;
     // twmsApiVersion: string;
