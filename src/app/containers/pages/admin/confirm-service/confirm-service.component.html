@@ -16,7 +16,7 @@
         <p class="w-full text-primary-700 font-semibold m-0">
             Servicio: {{ selectedService()?.name }} ({{selectedService()?.code}})
         </p>
-
+        
         <ng-container *ngIf="(distritoDataService.entityMapByPrefix$ | async) as distritoMapByPrefix">
           <ng-container *ngIf="distritoMapByPrefix[selectedDistritoPrefix()] as selectedDistrito">
             <p class="w-full text-primary-700 font-semibold m-0" >
