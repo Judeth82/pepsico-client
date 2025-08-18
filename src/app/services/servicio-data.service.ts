@@ -8,7 +8,7 @@ import { arrayToRecord } from '@u/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class ServicioDataService extends BaseDataService<ServicioModel> {
-  entityMapBy$ = this.entities$.pipe(switchMap((entities) => of(arrayToRecord<ServicioModel>('code', entities))));
+  entityMapByCode$ = this.entities$.pipe(switchMap((entities) => of(arrayToRecord<ServicioModel>('code', entities))));
 
   private _fileName = LocalDataEnum.servicios;
 

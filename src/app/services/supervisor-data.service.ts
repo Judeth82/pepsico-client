@@ -8,6 +8,7 @@ import { arrayToRecord } from '@u/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class SupervisorDataService extends BaseDataService<SupervisorModel> {
+  entityMapById$ = this.entities$.pipe(switchMap((entities) => of(arrayToRecord<SupervisorModel>('id', entities))));
   entityMapByDistrito$ = this.entities$.pipe(switchMap((entities) => of(arrayToRecord<SupervisorModel>('distritoId', entities))));
 
   private _fileName = LocalDataEnum.supervisores;

@@ -1,5 +1,5 @@
 export interface SupervisorModel {
-  id: number,
+  id: string,
   distritoId: number,
   nombre: string;
   correo: string;

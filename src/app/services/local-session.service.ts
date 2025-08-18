@@ -3,7 +3,7 @@ import { LocalStorageStateEnum } from '@e/local-storage-key.enum';
 
 @Injectable({ providedIn: 'root' })
 export class LocalSessionService {
-  private _key = LocalStorageStateEnum.clientId;
+  private _key = LocalStorageStateEnum.userSession;
 
   public isLogged(): boolean {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -24,15 +24,15 @@ export class LocalSessionService {
     return null;
   }
 
-  public saveSession(clientId: string | null): void {
-    if (typeof window !== 'undefined' && window.localStorage && clientId) {
-      localStorage.setItem(this._key, clientId);
+  public saveSession(id: string | null): void {
+    if (typeof window !== 'undefined' && window.localStorage && id) {
+      localStorage.setItem(this._key, id);
     }
   }
 
   public clearSession(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem(this._key)
+      localStorage.removeItem(this._key);
     }
   }
 }

@@ -4,9 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { dashboardRoute } from '@defaults';
+import { ClientDemandModel } from '@m/client-demand.model';
 import { ClienteModel } from '@m/cliente.model';
 import { SendEmailRequestModel } from '@m/send-email-request';
 import { ServicioModel } from '@m/servicio.model';
+import { ClientDemandHelperService } from '@s/client-demand-helper.service';
 import { ClienteDataService } from '@s/cliente-data.service';
 import { DialogsService } from '@s/dialogs/dialogs.service';
 import { DistritoDataService } from '@s/distrito-data.service';
@@ -29,6 +31,7 @@ import { combineLatest, filter, map, of, Subject, switchMap, takeUntil, tap } fr
 })
 export class ConfirmServiceComponent implements AfterViewInit, OnDestroy {
   protected networkActive = signal(false);
+  protected confirming = signal(false);
 
   protected selectedService = signal<ServicioModel | null>(null);
   protected clientData = signal<ClienteModel | null>(null);
@@ -40,6 +43,7 @@ export class ConfirmServiceComponent implements AfterViewInit, OnDestroy {
     protected distritoDataService: DistritoDataService,
     protected supervisorDataService: SupervisorDataService,
     private _emailHelperService: EmailHelperService,
+    private _clientDemandHelperService: ClientDemandHelperService,
     private _servicioDataService: ServicioDataService,
     private _clienteDataService: ClienteDataService,
     private _localSessionService: LocalSessionService,
@@ -96,33 +100,48 @@ export class ConfirmServiceComponent implements AfterViewInit, OnDestroy {
     ]).pipe(takeUntil(this._destroy$)).subscribe(([distritoMapByDistrito, distritoMapByPrefix]) => {
       const distrito = distritoMapByPrefix[this.selectedDistritoPrefix()];
       const supervisor = distritoMapByDistrito[distrito.id];
-      const guidNum = Math.floor(Math.random() * 8999999 + 100000);
 
-      const payload: SendEmailRequestModel = {
-        to: supervisor.correo,
-        subject: `Solicitud de servicio`,
-        htmlMessage: `
-          Hola ${supervisor}, el cliente ${this.clientData()?.nombre} a solicitado el siguiente servicio ${this.selectedService()?.name}.
-          Para mas seguimiento favor de usar el siguiente numeor de rastreo ${guidNum} para visita al distrito ${distrito.prefix}.
-        `
-      }
+      const payload: ClientDemandModel = {
+        idClient: this.clientData()?.id ?? null,
+        idSupervisor: supervisor.id,
+        serviceCode: this.selectedService()?.code ?? null,
+      };
 
-      this._emailHelperService.send(payload).pipe(takeUntil(this._destroy$)).subscribe(async (resp) => {
-        if (resp?.success) {
-          const message = `
+      this.confirming.set(true);
+      this._clientDemandHelperService.create(payload).pipe(takeUntil(this._destroy$)).subscribe((clientDemandResp) => {
+        const payload: SendEmailRequestModel = {
+          to: supervisor.correo,
+          subject: `Solicitud de servicio`,
+          htmlMessage: `
+          Hola ${supervisor.nombre}, el cliente ${this.clientData()?.nombre} a solicitado el siguiente servicio ${this.selectedService()?.name}.
+          Para mas seguimiento favor de usar el siguiente numeor de rastreo ${clientDemandResp.serviceNumber} para visita al distrito ${distrito.prefix}.
+        `,
+        };
+
+        this._emailHelperService.send(payload).pipe(takeUntil(this._destroy$)).subscribe(async (resp) => {
+          if (resp?.success) {
+            const message = `
             <span class="text-primary-700 font-semibold">
-              Se a notificado a <span class="text-orange-500 font-bold">${supervisor.nombre}</span> hacerca de la solicitud de tu servicio,
-              porfavor guarda el siguiente numero  de guia <span class="text-orange-500 font-bold">${guidNum}</span> para futuro seguimiento.
+              Se a notificado a <span class="text-orange-500 font-bold">${supervisor.nombre}</span> acerca de la solicitud de tu servicio,
+              porfavor guarda el siguiente numero  de guia <span class="text-orange-500 font-bold">${clientDemandResp.serviceNumber}</span> para futuro seguimiento.
               Pronto recibiras la visita en el distrito <span class="text-orange-500 font-bold">${distrito.prefix}</span>,
               para cualquier duda contactar al numero <span class="text-orange-500 font-bold">${supervisor.telefono}</span>.
             </span>
           `;
-          await this._dialogsService.info(message);
+            await this._dialogsService.info(message);
 
-          this._router.navigate([dashboardRoute]);
-        } else {
-          await this._dialogsService.info('Algo salio mal al momento de enviar el correo, favor de intentar mas tarde.');
-        }
+            this._router.navigate([dashboardRoute]);
+          } else {
+            await this._dialogsService.info('Algo salio mal al momento de enviar el correo, favor de intentar mas tarde.');
+          }
+          this.confirming.set(false);
+        }, () => {
+          this.confirming.set(false);
+          this._dialogsService.info('Algo salio mal al momento de enviar el correo, favor de intentar mas tarde.');
+        });
+      }, () => {
+        this.confirming.set(false);
+        this._dialogsService.info('Algo salio mal al momento de solicitar el servicio, favor de intentar mas tarde.');
       });
     });
   }

@@ -1,3 +1,3 @@
 export enum LocalStorageStateEnum {
-  clientId = 'clientId'
+  userSession = 'userSession',
 }

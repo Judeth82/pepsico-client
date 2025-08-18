@@ -4,9 +4,12 @@ import { BaseDataService } from './base-data.service';
 import { ClienteModel } from 'app/models';
 import { LocalDataService } from './local-data.services';
 import { cloneDeep } from 'lodash';
+import { of, switchMap } from 'rxjs';
+import { arrayToRecord } from '@u/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class ClienteDataService extends BaseDataService<ClienteModel> {
+  entityMapById$ = this.entities$.pipe(switchMap((entities) => of(arrayToRecord<ClienteModel>('id', entities))));
   private _fileName = LocalDataEnum.clientes;
 
   constructor(

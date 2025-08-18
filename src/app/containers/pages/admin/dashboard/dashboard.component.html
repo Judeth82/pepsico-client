@@ -1,6 +1,7 @@
 <section>
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-    <div *ngIf="clientData() else loading" class="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 section-form">
+    <div *ngIf="sessionData$() else loading" class="w-full rounded-lg shadow dark:border md:mt-0 xl:p-0 section-form"
+      [ngClass]="isAdmin$() ? 'max-w-xl': 'sm:max-w-md'">
       <div class="w-full text-start p-2">
         <mat-icon class="text-primary-600 cursor-pointer" (click)="logout()">logout</mat-icon>
       </div>
@@ -8,18 +9,71 @@
         <p class="font-bold leading-tight tracking-tight text-primary-700 sm:text-4xl text-3x1 dark:text-white text-center">
           Bienvenido(a)!
         </p>
-        <h1 class="w-full text-center text-orange-500 text-2xl">{{ clientData()?.nombre }} ({{clientData()?.id}})</h1>
-        <p class="text-primary-700 font-semibold">Elige uno de los siguientes servicios: </p>
+        <h1 class="w-full text-center text-orange-500 text-2xl">{{ (sessionData$()?.nombre ?? sessionData$()?.correo ) }}
+          @if (!isAdmin$()) {
+            ({{sessionData$()?.id}})
+          }
+        </h1>
 
-        <div class="space-y-2 flex">
-          <ng-container *ngIf="(servicioDataService.entities$ | async) as servicios">
-            <div class="w-full text-center" *ngFor="let item of servicios">
-              <img src="/assets/images/logo/{{item.logo}}.png" class="w-[80px] h-auto m-auto cursor-pointer"
-                [class.pt-4]="item.logo !== 'gamesa-logo'"
-                (click)="confirmService(item)"/>
-            </div>
-          </ng-container>
-        </div>
+        @if(isAdmin$()) {
+          <p class="text-primary-700 font-semibold">Reporte de servicios solicitados: </p>
+
+           <mat-form-field class="w-full truncate">
+            <input matInput placeholder="Search..."
+              (change)="onSearchChange($event)">
+          </mat-form-field>
+
+          <div class="w-full rounded-md border-2 border-gray-300 max-h-[400px] overflow-auto">
+            <table mat-table [dataSource]="dataSource$()" class="w-full rounded-md">
+              <ng-container matColumnDef="serviceNumber">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{ element.serviceNumber }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="client">
+                <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element?.clientName }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="supervisor">
+                <th mat-header-cell *matHeaderCellDef> Supervisor </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element?.supervisorName }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="servicio">
+                <th mat-header-cell *matHeaderCellDef> Servicio </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element?.serviceName }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let element"> {{ element.status }}  </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns$()"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns$();"></tr>
+            </table>
+          </div>
+        } @else {
+          <p class="text-primary-700 font-semibold">Elige uno de los siguientes servicios: </p>
+
+          <div class="space-y-2 flex">
+            <ng-container *ngIf="(servicioDataService.entities$ | async) as servicios">
+              <div class="w-full text-center" *ngFor="let item of servicios">
+                <img src="/assets/images/logo/{{item.logo}}.png" class="w-[80px] h-auto m-auto cursor-pointer"
+                  [class.pt-4]="item.logo !== 'gamesa-logo'"
+                  (click)="confirmService(item)"/>
+              </div>
+            </ng-container>
+          </div>
+        }
+
       </div>
     </div>
     <ng-template #loading>Loading...</ng-template>

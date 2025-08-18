@@ -1,3 +1,4 @@
+export * from './client-demand.model';
 export * from './cliente.model';
 export * from './distrito.model';
 export * from './servicio.model';

@@ -8,7 +8,8 @@ import { InputDelayMS } from '@constants';
 import { authRoutes, dashboardRoute } from '@defaults';
 import { ClienteDataService } from '@s/cliente-data.service';
 import { LocalSessionService } from '@s/local-session.service';
-import { delay, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { SupervisorDataService } from '@s/supervisor-data.service';
+import { combineLatest, delay, filter, of, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -39,6 +40,7 @@ export class SignInComponent implements OnDestroy {
     private _router: Router,
     private _localSessionService: LocalSessionService,
     private _clienteDataService: ClienteDataService,
+    private _supervisorDataService: SupervisorDataService,
   ) { }
 
   ngOnDestroy(): void {
@@ -51,21 +53,35 @@ export class SignInComponent implements OnDestroy {
       return;
     }
 
-    const clientId = this.signInForm.value.clientId;
+    const sessionId = this.signInForm.value.clientId;
     this.networkActive.set(true);
     this.message.set(null);
-    this._clienteDataService.entities$.pipe(
-      switchMap((entities) => of((entities || []).find((e) => e.id === clientId))),
+
+    combineLatest([
+      this._clienteDataService.loaded$.pipe(
+        filter((v) => !!v),
+        switchMap(() => this._clienteDataService.entities$)
+      ),
+      this._supervisorDataService.loaded$.pipe(
+        filter((v) => !!v),
+        switchMap(() => this._supervisorDataService.entities$)
+      ),
+    ]).pipe(
       delay(InputDelayMS),
-      takeUntil(this._destroy$),
-    ).subscribe((client) => {
+      takeUntil(this._destroy$)
+    ).subscribe(([clients, supervisores]) => {
+      const client = (clients || []).find((e) => e.id === sessionId);
+      const supervisor = (supervisores || []).find((s) => s.correo === sessionId);
+
       if (client) {
         this._localSessionService.saveSession(client.id);
+        this._router.navigate([this.dashboardRoute]);
+      } else if (supervisor) {
+        this._localSessionService.saveSession(supervisor.id);
         this._router.navigate([this.dashboardRoute]);
       } else {
         this.message.set('Lo sentimos no pudimos encontrar su numero de cliente');
       }
-      this.networkActive.set(false);
     }, () => {
       this.message.set('Lo sentimos, ocurrio un problema al validar tus datos');
       this.networkActive.set(false);
