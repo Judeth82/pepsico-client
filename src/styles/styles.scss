@@ -50,6 +50,7 @@ $pepsico-client-theme: mat.define-theme(
 
   --header-height: 5.75rem;
   --header-height-w-breadcrumb: 8.75rem;
+  background-color: #b7ddf2 !important;
 
   @import "custom-material-styles";
   mat-icon {
@@ -57,8 +58,6 @@ $pepsico-client-theme: mat.define-theme(
   }
 
   section {
-
-
     .section-form {
       // box-shadow: 1px -1px 10px 4px #6554bd !important;
       @apply bg-white;
